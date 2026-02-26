@@ -1,4 +1,4 @@
 package com.verdantsun;
 
-public class Title {
+public class Tile {
 }
