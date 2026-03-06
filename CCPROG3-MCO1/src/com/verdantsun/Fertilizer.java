@@ -5,11 +5,13 @@ public class Fertilizer {
     private String name;
     private int price;
     private int effectDays;
+    private int maxEffectDays;
 
     public Fertilizer(String name, int price, int effectDays) {
         this.name = name;
         this.price = price;
         this.effectDays = effectDays;
+        this.maxEffectDays = effectDays;
     }
 
     public void decreaseEffect() {
@@ -32,5 +34,13 @@ public class Fertilizer {
 
     public boolean isActive() {
         return this.effectDays > 0;
+    }
+
+    public int getEffectDays() {
+        return this.effectDays;
+    }
+
+    public int getMaxEffectDays() {
+        return this.maxEffectDays;
     }
 }
