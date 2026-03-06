@@ -23,7 +23,7 @@ public class Tile {
             return false;
         }
 
-        if(this.isMeteoriteAffected()) {
+        if(this.meteoriteAffected) {
             return false;
         }
 
@@ -49,7 +49,11 @@ public class Tile {
             return false;
         }
 
-        plant.water();
+        if (this.plant.isWatered()) {
+            return false;
+        }
+
+        this.plant.water();
         return true;
     }
 
@@ -69,21 +73,24 @@ public class Tile {
 
         boolean fertilized = this.permanentlyFertilized || (this.fertilizer != null && !fertilizer.isExpired());
 
-        plant.grow(this.soilType, fertilized);
-        plant.resetWater();
-    }
+        boolean wasWatered = this.plant.isWatered();
 
-    public void reduceFertilizer() {
-        if (this.fertilizer != null) {
-            fertilizer.decreaseEffect();
-            if (fertilizer.isExpired()) {
+        plant.grow(this.soilType, fertilized);
+
+        if (wasWatered && this.fertilizer != null) {
+            this.fertilizer.decreaseEffect();;
+
+            if (this.fertilizer.isExpired()) {
                 this.fertilizer = null;
             }
         }
+
+        plant.resetWater();
     }
 
     public void excavate() {
         this.meteoriteAffected = false;
+        this.soilType = this.originalSoilType;
         this.permanentlyFertilized = true;
     }
 
@@ -101,5 +108,26 @@ public class Tile {
 
     public void setMeteoriteAffected(boolean value) {
         this.meteoriteAffected = value;
+    }
+
+    public void setSoilType(String soilType) {
+        this.soilType = soilType;
+        this.originalSoilType = soilType;
+    }
+
+    public String getSoilType() {
+        return this.soilType;
+    }
+
+    public Plant getPlant() {
+        return this.plant;
+    }
+
+    public Fertilizer getFertilizer() {
+        return this.fertilizer;
+    }
+
+    public boolean isPermanentlyFertilized() {
+        return permanentlyFertilized;
     }
 }
