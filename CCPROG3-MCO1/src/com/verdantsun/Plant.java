@@ -10,6 +10,7 @@ public class Plant {
     private String preferredSoil;
     private boolean watered;
     private int cropPrice;
+    private char symbol;
 
     public Plant(String name, int seedPrice, int yield, int maxGrowth, String preferredSoil, int cropPrice) {
         this.name = name;
@@ -18,6 +19,8 @@ public class Plant {
         this.maxGrowth = maxGrowth;
         this.preferredSoil = preferredSoil;
         this.cropPrice = cropPrice;
+        this.symbol = generateSymbol(name);
+
         this.currentGrowth = 0;
         this.watered = false;
     }
@@ -56,6 +59,10 @@ public class Plant {
         return this.currentGrowth >= this.maxGrowth;
     }
 
+    public boolean isWatered() {
+        return this.watered;
+    }
+
     public String getName() {
         return name;
     }
@@ -66,5 +73,45 @@ public class Plant {
 
     public int getYieldValue() {
         return this.yield * cropPrice;
+    }
+
+    public int getMaxGrowth() {
+        return this.maxGrowth;
+    }
+
+    public String getPreferredSoil() {
+        return this.preferredSoil;
+    }
+
+    public int getCropPrice() {
+        return this.cropPrice;
+    }
+
+    public int getYield() {
+        return this.yield;
+    }
+
+    public char getSymbol() {
+        return this.symbol;
+    }
+
+    public int getCurrentGrowth() {
+        return this.currentGrowth;
+    }
+
+    private char generateSymbol(String name) {
+
+        switch (name.toLowerCase()) {
+            case "potato": return 'P';
+            case "tomato": return 'O';
+            case "turnip": return 'U';
+            case "wheat": return 'W';
+            case "thyme": return 'T';
+            default: return Character.toUpperCase(name.charAt(0));
+        }
+    }
+
+    public boolean isInPreferredSoil(String soilType) {
+        return soilType.equalsIgnoreCase(this.preferredSoil);
     }
 }
