@@ -32,9 +32,14 @@ public class Fertilizer {
         return this.price;
     }
 
-    public boolean isActive() {
-        return this.effectDays > 0;
+    public int getEffectDays() {
+        return this.effectDays;
     }
+
+    public int getMaxEffectDays() {
+        return this.maxEffectDays;
+    }
+}    }
 
     public int getEffectDays() {
         return this.effectDays;
