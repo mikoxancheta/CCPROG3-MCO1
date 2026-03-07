@@ -52,7 +52,7 @@ public class Game {
         this.field.nextDayUpdate();
 
         if (this.currentDay == 8) {
-            this.field.applyMeteoritePattern();
+            this.field.applyMeteoritePattern(this.player);
             System.out.println("A meteorite has struck the farm!");
         }
 
