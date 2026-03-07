@@ -18,6 +18,75 @@ public class Field {
         return this.tiles[row][col];
     }
 
+    public void nextDayUpdate() {
+        for (Tile[] row : this.tiles) {
+            for (Tile tile : row) {
+                tile.growPlant();
+            }
+        }
+    }
+
+    public void applyMeteoritePattern() {
+
+        int[][] affectedTiles = {
+                {1,1}, {1,4}, {1,5}, {1,8},
+                {3,3}, {3,4}, {3,5}, {3,6},
+                {4,1}, {4,3}, {4,4}, {4,5}, {4,6}, {4,8},
+                {5,1}, {5,3}, {5,4}, {5,5}, {5,6}, {5,8},
+                {6,3}, {6,4}, {6,5}, {6,6},
+                {8,1}, {8,4}, {8,5}, {8,8}
+        };
+
+        for (int[] coord : affectedTiles) {
+            int row = coord[0];
+            int col = coord[1];
+
+            Tile tile = this.tiles[row][col];
+
+            tile.setMeteoriteAffected(true);
+
+            if (tile.hasPlant()) {
+                tile.removePlant();
+            }
+        }
+    }
+
+    public boolean hasAnyPlant() {
+        for (int i = 0; i < tiles.length; i++) {
+            for (int j = 0; j < tiles[i].length; j++) {
+                if (tiles[i][j].hasPlant()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean hasWaterablePlants() {
+        for (int i = 0; i < tiles.length; i++) {
+            for (int j = 0; j < tiles[i].length; j++) {
+
+                Tile tile = tiles[i][j];
+
+                if (tile.hasPlant() && !tile.getPlant().isWatered()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean hasMeteoriteTiles() {
+        for (int i = 0; i < tiles.length; i++) {
+            for (int j = 0; j < tiles[i].length; j++) {
+                if (tiles[i][j].isMeteoriteAffected()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public void displayField() {
 
         System.out.println();
@@ -127,71 +196,5 @@ public class Field {
                 }
             }
         }
-    }
-
-    public void nextDayUpdate() {
-        for (Tile[] row : this.tiles) {
-            for (Tile tile : row) {
-                tile.growPlant();
-            }
-        }
-    }
-
-    public void applyMeteoritePattern() {
-
-        int[][] affectedTiles = {
-                {1,1}, {1,4}, {1,5}, {1,8},
-                {3,3}, {3,4}, {3,5}, {3,6},
-                {4,1}, {4,3}, {4,4}, {4,5}, {4,6}, {4,8},
-                {5,1}, {5,3}, {5,4}, {5,5}, {5,6}, {5,8},
-                {6,3}, {6,4}, {6,5}, {6,6},
-                {8,1}, {8,4}, {8,5}, {8,8}
-        };
-
-        for (int[] coord : affectedTiles) {
-            int row = coord[0];
-            int col = coord[1];
-
-            Tile tile = this.tiles[row][col];
-
-            tile.setMeteoriteAffected(true);
-
-            if (tile.hasPlant()) {
-                tile.removePlant();
-            }
-        }
-    }
-
-    public boolean hasAnyPlant() {
-        for (int i = 0; i < tiles.length; i++) {
-            for (int j = 0; j < tiles[i].length; j++) {
-                if (tiles[i][j].hasPlant()) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    public boolean hasWaterablePlants() {
-        for (Tile[] row : tiles) {
-            for (Tile tile : row) {
-                if (tile.hasPlant() && !tile.getPlant().isWatered()) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    public boolean hasMeteoriteTiles() {
-        for (int i = 0; i < tiles.length; i++) {
-            for (int j = 0; j < tiles[i].length; j++) {
-                if (tiles[i][j].isMeteoriteAffected()) {
-                    return true;
-                }
-            }
-        }
-        return false;
     }
 }
