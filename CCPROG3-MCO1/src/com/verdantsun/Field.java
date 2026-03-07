@@ -26,7 +26,7 @@ public class Field {
         }
     }
 
-    public void applyMeteoritePattern() {
+    public void applyMeteoritePattern(Player player) {
 
         int[][] affectedTiles = {
                 {1,1}, {1,4}, {1,5}, {1,8},
@@ -46,7 +46,25 @@ public class Field {
             tile.setMeteoriteAffected(true);
 
             if (tile.hasPlant()) {
-                tile.removePlant();
+                Plant plant = tile.getPlant();
+
+                if (plant.isMature()) {
+                    int harvestValue = tile.harvestPlant();
+
+                    player.addSavings(harvestValue);
+
+                    System.out.println(
+                                    plant.getName() +
+                                    " at (" + (row + 1) + "," + (col + 1) + ") was harvested by the meteorite! + " +
+                                    harvestValue + " savings."
+                    );
+                } else {
+                    System.out.println(
+                                    plant.getName() +
+                                    " at (" + (row + 1) + "," + (col + 1) + ") was destroyed by the meteorite."
+                    );
+                    tile.removePlant();
+                }
             }
         }
     }
