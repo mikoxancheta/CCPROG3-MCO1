@@ -14,12 +14,10 @@ public class Player {
         this.savings += amount;
     }
 
-    public boolean deductSavings(int amount) {
+    public void deductSavings(int amount) {
         if (this.savings >= amount) {
             this.savings -=amount;
-            return true;
         }
-        return false;
     }
 
     public boolean canAfford(int amount) {
