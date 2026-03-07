@@ -106,8 +106,12 @@ public class Tile {
         return meteoriteAffected;
     }
 
-    public void setMeteoriteAffected(boolean value) {
-        this.meteoriteAffected = value;
+    public boolean isPermanentlyFertilized() {
+        return permanentlyFertilized;
+    }
+
+    public String getSoilType() {
+        return this.soilType;
     }
 
     public void setSoilType(String soilType) {
@@ -115,8 +119,8 @@ public class Tile {
         this.originalSoilType = soilType;
     }
 
-    public String getSoilType() {
-        return this.soilType;
+    public void setMeteoriteAffected(boolean value) {
+        this.meteoriteAffected = value;
     }
 
     public Plant getPlant() {
@@ -125,9 +129,5 @@ public class Tile {
 
     public Fertilizer getFertilizer() {
         return this.fertilizer;
-    }
-
-    public boolean isPermanentlyFertilized() {
-        return permanentlyFertilized;
     }
 }
